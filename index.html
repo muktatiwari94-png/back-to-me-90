@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e9eee5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Back to Me">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Back to Me · 90 Days</title>
+<style>
+:root{--sage:#718775;--sage-dark:#435b4b;--sage-pale:#e5ece3;--cream:#f7f5ed;--paper:#fffef9;--ink:#28362d;--muted:#788178;--line:#e5e8df;--coral:#c9826b;--shadow:0 8px 28px rgba(48,67,52,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom);-webkit-tap-highlight-color:transparent}
+.app{max-width:680px;margin:auto;padding:18px 16px 96px}.top{display:flex;justify-content:space-between;align-items:center;margin:8px 2px 18px}.brand{font-size:12px;letter-spacing:2.3px;font-weight:800;color:var(--sage-dark)}.date{font-size:12px;color:var(--muted)}
+.hero{background:linear-gradient(135deg,#526b58,#829782);color:#fff;border-radius:25px;padding:23px 21px;box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:190px;height:190px;border:1px solid #ffffff30;border-radius:50%;right:-70px;top:-65px}.eyebrow{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;color:#e3ebe0}.hero h1{font-family:Georgia,serif;font-weight:500;font-size:34px;line-height:1.08;margin:10px 0 7px}.hero p{font-size:13px;color:#edf2eb;margin:0 0 20px}.progressline{height:8px;border-radius:20px;background:#ffffff40;overflow:hidden}.progressfill{height:100%;width:0;background:#f4f0df;border-radius:20px;transition:width .25s}.progressmeta{display:flex;justify-content:space-between;font-size:11px;color:#f0f4ee;margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin:14px 0}.stat{background:var(--paper);border:1px solid var(--line);border-radius:17px;padding:13px 11px}.stat b{display:block;font:24px Georgia,serif;color:var(--sage-dark)}.stat span{font-size:10px;color:var(--muted);letter-spacing:.6px;text-transform:uppercase}
+.tabs{display:flex;gap:7px;overflow:auto;padding:3px 0 12px;scrollbar-width:none}.tab{border:1px solid var(--line);background:var(--paper);color:var(--muted);border-radius:30px;padding:10px 14px;font-size:12px;white-space:nowrap}.tab.active{background:var(--sage-dark);border-color:var(--sage-dark);color:white}
+.panel{display:none}.panel.active{display:block}.card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:17px;margin:0 0 12px;box-shadow:0 3px 14px rgba(48,67,52,.035)}.cardhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.card h2{font:22px Georgia,serif;font-weight:500;margin:0}.hint{font-size:11px;color:var(--muted);line-height:1.45}.field{margin:13px 0}.field label,.label{display:block;font-size:12px;font-weight:650;margin-bottom:7px;color:#526155}.input,select,textarea{width:100%;border:1px solid #dfe5dc;border-radius:12px;background:#fbfcf8;padding:12px;color:var(--ink);font:14px -apple-system,BlinkMacSystemFont,sans-serif;outline:none}.input:focus,select:focus,textarea:focus{border-color:var(--sage)}textarea{min-height:75px;resize:vertical}
+.row{display:flex;gap:10px}.row>*{flex:1;min-width:0}.chips{display:flex;flex-wrap:wrap;gap:7px}.chip{border:1px solid var(--line);background:#fbfcf8;border-radius:30px;padding:9px 12px;font-size:12px;color:#5f6c60}.chip.selected{background:var(--sage-pale);border-color:#aebfac;color:var(--sage-dark);font-weight:650}
+.counter{display:flex;align-items:center;gap:12px}.counter button{width:38px;height:38px;border:0;border-radius:50%;background:var(--sage-pale);color:var(--sage-dark);font-size:22px}.counter strong{font-size:22px;min-width:24px;text-align:center}
+.meal{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}.meal:last-child{border:0}.meal input{accent-color:var(--sage-dark);width:18px;height:18px}
+.mood{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}.mood button{border:1px solid var(--line);background:#fbfcf8;border-radius:12px;padding:10px 3px;font-size:21px}.mood button.selected{background:var(--sage-pale);border-color:var(--sage)}
+.primary{width:100%;border:0;border-radius:14px;background:var(--sage-dark);color:white;padding:14px;font-size:14px;font-weight:700;margin-top:7px}.secondary{border:1px solid var(--line);border-radius:12px;background:transparent;color:var(--sage-dark);padding:11px 13px;font-size:12px;font-weight:650}
+.saved{font-size:11px;color:var(--sage-dark);text-align:center;min-height:16px;margin-top:7px}.daynav{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.daynav button{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:8px 11px;color:var(--sage-dark)}.daynav strong{font-size:13px}
+.listrow{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px}.listrow:last-child{border:0}.pill{background:var(--sage-pale);color:var(--sage-dark);border-radius:30px;padding:5px 9px;font-size:11px}
+.quote{font:italic 17px Georgia,serif;color:var(--sage-dark);line-height:1.4;padding:4px 0}.bottomnav{position:fixed;bottom:0;left:0;right:0;background:#f7f5edee;backdrop-filter:blur(16px);border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom));display:flex;justify-content:center;z-index:5}.bottomnav button{background:none;border:0;color:var(--muted);font-size:11px;padding:5px 14px}.bottomnav button.active{color:var(--sage-dark);font-weight:800}
+.small{font-size:11px;color:var(--muted)}.danger{color:#a45f50}.empty{color:var(--muted);font-size:13px;text-align:center;padding:22px 8px}
+@media(min-width:600px){.app{padding-top:28px}.hero{padding:30px}.hero h1{font-size:40px}}
+</style>
+</head>
+<body>
+<div class="app">
+ <div class="top"><div class="brand">BACK TO ME</div><div class="date" id="todayLabel"></div></div>
+ <section class="hero">
+  <div class="eyebrow" id="dayEyebrow">YOUR 90-DAY EXPERIMENT</div>
+  <h1>Your life.<br>Your rhythm.</h1>
+  <p>Consistency over perfection.</p>
+  <div class="progressline"><div class="progressfill" id="progressFill"></div></div>
+  <div class="progressmeta"><span id="dayCount">Day 1 of 90</span><span id="daysLeft">89 days to go</span></div>
+ </section>
+ <div class="stats">
+  <div class="stat"><b id="gymStat">0</b><span>Movement days</span></div>
+  <div class="stat"><b id="smokeStat">—</b><span>Today's cigarettes</span></div>
+  <div class="stat"><b id="streakStat">0</b><span>Check-in days</span></div>
+ </div>
+ <nav class="tabs">
+  <button class="tab active" data-tab="today">Today</button><button class="tab" data-tab="gym">Movement</button><button class="tab" data-tab="smoking">Smoking</button><button class="tab" data-tab="food">Food & water</button><button class="tab" data-tab="wellbeing">Sleep & mood</button><button class="tab" data-tab="progress">Progress</button>
+ </nav>
+ <main>
+  <section class="panel active" id="today">
+   <div class="card">
+    <div class="cardhead"><h2>Daily check-in</h2><span class="pill" id="saveBadge">On this device</span></div>
+    <div class="daynav"><button id="prevDay">← Previous</button><strong id="selectedDate"></strong><button id="nextDay">Next →</button></div>
+    <div class="hint">Choose a date to add or review its log. Your entries are saved in this browser on this device.</div>
+   </div>
+   <div class="card">
+    <div class="cardhead"><h2>Today's promise</h2></div>
+    <div class="listrow"><span>Movement</span><span id="todayMovement" class="pill">Not logged</span></div>
+    <div class="listrow"><span>Meals</span><span id="todayMeals" class="pill">0 / 3</span></div>
+    <div class="listrow"><span>Cigarettes</span><span id="todayCigs" class="pill">Not logged</span></div>
+    <div class="listrow"><span>Sleep</span><span id="todaySleep" class="pill">Not logged</span></div>
+    <p class="quote">“You don't have to do it perfectly. You just have to return.”</p>
+   </div>
+  </section>
+  <section class="panel" id="gym">
+   <div class="card">
+    <div class="cardhead"><h2>Movement</h2><span class="pill">Move in a way that feels good</span></div>
+    <div class="field"><label>What did you do?</label><div class="chips" id="activityChoices"><button class="chip" data-value="Gym strength">Gym strength</button><button class="chip" data-value="Cardio">Cardio</button><button class="chip" data-value="Walk">Walk</button><button class="chip" data-value="Yoga / mobility">Yoga / mobility</button><button class="chip" data-value="Rest day">Rest day</button></div></div>
+    <div class="row"><div class="field"><label>Duration (minutes)</label><input class="input" id="minutes" type="number" min="0" max="300" inputmode="numeric" placeholder="e.g. 35"></div><div class="field"><label>Steps (optional)</label><input class="input" id="steps" type="number" min="0" inputmode="numeric" placeholder="e.g. 7000"></div></div>
+    <div class="field"><label>How did it feel?</label><select id="workoutFeel"><option value="">Choose one</option><option>Easy</option><option>Good</option><option>Challenging</option><option>Tired, but glad I went</option></select></div>
+    <div class="field"><label>Notes</label><textarea id="gymNotes" placeholder="Exercises, weights, energy..."></textarea></div>
+   </div>
+  </section>
+  <section class="panel" id="smoking">
+   <div class="card">
+    <div class="cardhead"><h2>Smoking log</h2><span class="pill">No judgement. Just data.</span></div>
+    <div class="field"><label>Number of cigarettes today</label><div class="counter"><button id="cigMinus" aria-label="Decrease">−</button><strong id="cigValue">0</strong><button id="cigPlus" aria-label="Increase">+</button></div></div>
+    <div class="field"><label>What triggered cravings?</label><div class="chips" id="triggerChoices"><button class="chip" data-value="Boredom">Boredom</button><button class="chip" data-value="Stress">Stress</button><button class="chip" data-value="After meals">After meals</button><button class="chip" data-value="Tea / coffee">Tea / coffee</button><button class="chip" data-value="Social">Social</button><button class="chip" data-value="Habit">Habit</button></div></div>
+    <div class="field"><label>Craving intensity (1–5)</label><input id="craving" type="range" min="1" max="5" value="3" style="width:100%;accent-color:var(--sage-dark)"><div class="small">1 = mild · 5 = intense</div></div>
+    <div class="field"><label>What helped instead?</label><textarea id="smokeNotes" placeholder="Walk, water, gum, called someone..."></textarea></div>
+    <p class="hint">A slip is information, not failure. If you're ready to quit, set a quit date and consider evidence-based support such as nicotine replacement. This tracker is not a treatment plan.</p>
+   </div>
+  </section>
+  <section class="panel" id="food">
+   <div class="card">
+    <div class="cardhead"><h2>Food & nourishment</h2><span class="pill">Vegetarian · egg-free</span></div>
+    <div class="hint">Tick meals when you've eaten. No calorie policing here — aim for regular, balanced meals.</div>
+    <div id="mealChecks">
+     <label class="meal"><input type="checkbox" id="breakfast"> <span><b>Breakfast</b><br><span class="small">Add protein where possible</span></span></label>
+     <label class="meal"><input type="checkbox" id="lunch"> <span><b>Lunch</b><br><span class="small">Dal / paneer / tofu + vegetables</span></span></label>
+     <label class="meal"><input type="checkbox" id="dinner"> <span><b>Dinner</b><br><span class="small">A satisfying, balanced plate</span></span></label>
+     <label class="meal"><input type="checkbox" id="snack"> <span><b>Planned snack (optional)</b><br><span class="small">Fruit, curd, nuts or roasted chana</span></span></label>
+    </div>
+    <div class="field"><label>Water (glasses)</label><div class="counter"><button id="waterMinus" aria-label="Decrease">−</button><strong id="waterValue">0</strong><button id="waterPlus" aria-label="Increase">+</button></div><div class="small">A glass is whatever size you usually use. Adjust to thirst, activity and any medical advice.</div></div>
+    <div class="field"><label>Food notes</label><textarea id="foodNotes" placeholder="Meals, hunger, anything you noticed..."></textarea></div>
+   </div>
+  </section>
+  <section class="panel" id="wellbeing">
+   <div class="card">
+    <div class="cardhead"><h2>Sleep & mood</h2></div>
+    <div class="field"><label>Hours of sleep</label><input class="input" id="sleep" type="number" min="0" max="24" step=".5" inputmode="decimal" placeholder="e.g. 7.5"></div>
+    <div class="field"><label>Sleep quality</label><div class="chips" id="sleepChoices"><button class="chip" data-value="Restful">Restful</button><button class="chip" data-value="Okay">Okay</button><button class="chip" data-value="Restless">Restless</button><button class="chip" data-value="Poor">Poor</button></div></div>
+    <div class="field"><label>How are you feeling today?</label><div class="mood" id="moodChoices"><button data-value="1" aria-label="Very low">😞</button><button data-value="2" aria-label="Low">😕</button><button data-value="3" aria-label="Okay">😐</button><button data-value="4" aria-label="Good">🙂</button><button data-value="5" aria-label="Great">😊</button></div></div>
+    <div class="field"><label>One thing I'm proud of today</label><textarea id="proud" placeholder="Even something tiny counts..."></textarea></div>
+   </div>
+  </section>
+  <section class="panel" id="progress">
+   <div class="card">
+    <div class="cardhead"><h2>Your 90-day story</h2><span class="pill">Private on this device</span></div>
+    <div class="stats" style="margin:0"><div class="stat"><b id="pDays">0</b><span>Days logged</span></div><div class="stat"><b id="pMoves">0</b><span>Movement days</span></div><div class="stat"><b id="pCigs">—</b><span>Cigarettes logged</span></div></div>
+    <div class="field"><label>Movement minutes logged</label><div class="listrow"><span>Total</span><b id="pMinutes">0 min</b></div></div>
+    <div class="field"><label>Daily history</label><div id="history"></div></div>
+    <div class="field"><button class="secondary" id="exportBtn">Export my data (CSV)</button> <button class="secondary danger" id="resetBtn">Reset all data</button></div>
+    <p class="hint">Your data is stored in this browser's local storage. It is not uploaded to a server. Export a backup regularly. Clearing Safari website data or removing the app/browser data can erase it.</p>
+   </div>
+  </section>
+  <button class="primary" id="saveBtn">Save today's check-in</button><div class="saved" id="savedMsg"></div>
+ </main>
+</div>
+<div class="bottomnav"><button class="active" data-tab="today">◷ Today</button><button data-tab="gym">↗ Move</button><button data-tab="smoking">♡ Quit</button><button data-tab="progress">▤ Progress</button></div>
+<script>
+const START = new Date(2026,10,18);
+const TOTAL=90, KEY='backToMe90_v1';
+let db=JSON.parse(localStorage.getItem(KEY)||'{}');
+let selected=new Date(); selected.setHours(0,0,0,0);
+let current={activity:'',triggers:[],sleepQuality:'',mood:0,cigs:0,water:0,meals:{},craving:3};
+const $=id=>document.getElementById(id);
+const key=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+const fmt=d=>d.toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+function dayNum(d){return Math.floor((new Date(d.getFullYear(),d.getMonth(),d.getDate())-START)/86400000)+1}
+function todayKey(){return key(selected)}
+function saveDB(){localStorage.setItem(KEY,JSON.stringify(db));}
+function loadForm(){
+ current=structuredClone(db[todayKey()]||{activity:'',triggers:[],sleepQuality:'',mood:0,cigs:0,water:0,meals:{},craving:3});
+ $('minutes').value=current.minutes??'';$('steps').value=current.steps??'';$('workoutFeel').value=current.workoutFeel||'';$('gymNotes').value=current.gymNotes||'';
+ $('cigValue').textContent=current.cigs??0;$('craving').value=current.craving??3;$('smokeNotes').value=current.smokeNotes||'';
+ ['breakfast','lunch','dinner','snack'].forEach(x=>$(x).checked=!!current.meals?.[x]);
+ $('waterValue').textContent=current.water??0;$('foodNotes').value=current.foodNotes||'';
+ $('sleep').value=current.sleep??'';$('proud').value=current.proud||'';
+ $('activityChoices').querySelectorAll('button').forEach(b=>b.classList.toggle('selected',b.dataset.value===current.activity));
+ $('triggerChoices').querySelectorAll('button').forEach(b=>b.classList.toggle('selected',(current.triggers||[]).includes(b.dataset.value)));
+ $('sleepChoices').querySelectorAll('button').forEach(b=>b.classList.toggle('selected',b.dataset.value===current.sleepQuality));
+ $('moodChoices').querySelectorAll('button').forEach(b=>b.classList.toggle('selected',Number(b.dataset.value)===Number(current.mood)));
+ $('selectedDate').textContent=fmt(selected);$('savedMsg').textContent='';
+ updateSummary();
+}
+function collect(){
+ current.minutes=Number($('minutes').value)||0;current.steps=Number($('steps').value)||0;current.workoutFeel=$('workoutFeel').value;current.gymNotes=$('gymNotes').value;
+ current.craving=Number($('craving').value);current.smokeNotes=$('smokeNotes').value;
+ current.meals={};['breakfast','lunch','dinner','snack'].forEach(x=>current.meals[x]=$(x).checked);
+ current.water=Number($('waterValue').textContent);current.foodNotes=$('foodNotes').value;
+ current.sleep=Number($('sleep').value)||0;current.proud=$('proud').value;
+ return current;
+}
+function updateSummary(){
+ const n=dayNum(selected), inRange=n>=1&&n<=TOTAL;
+ $('todayLabel').textContent=fmt(new Date());$('dayEyebrow').textContent=inRange?`DAY ${n} · YOUR 90-DAY EXPERIMENT`:'YOUR 90-DAY EXPERIMENT';
+ $('dayCount').textContent=inRange?`Day ${n} of ${TOTAL}`:'Outside challenge dates';$('daysLeft').textContent=inRange?`${TOTAL-n} days to go`:'90-day journey';
+ $('progressFill').style.width=`${Math.max(0,Math.min(100,n/TOTAL*100))}%`;
+ const entries=Object.values(db), logged=entries.length;
+ $('gymStat').textContent=entries.filter(x=>x.activity&&x.activity!=='Rest day').length;
+ $('smokeStat').textContent=db[todayKey()]?.cigs??'—';$('streakStat').textContent=logged;
+ const t=db[todayKey()]||{};const meals=t.meals||{};
+ $('todayMovement').textContent=t.activity||'Not logged';$('todayMeals').textContent=['breakfast','lunch','dinner'].filter(x=>meals[x]).length+' / 3';
+ $('todayCigs').textContent=t.cigs===undefined?'Not logged':t.cigs;$('todaySleep').textContent=t.sleep?`${t.sleep} hrs`:'Not logged';
+ $('pDays').textContent=logged;$('pMoves').textContent=entries.filter(x=>x.activity&&x.activity!=='Rest day').length;
+ $('pCigs').textContent=entries.reduce((a,x)=>a+(Number(x.cigs)||0),0);
+ $('pMinutes').textContent=entries.reduce((a,x)=>a+(Number(x.minutes)||0),0)+' min';
+ const hist=Object.entries(db).sort((a,b)=>b[0].localeCompare(a[0])).slice(0,12);
+ $('history').innerHTML=hist.length?hist.map(([d,x])=>`<div class="listrow"><span>${new Date(d+'T12:00:00').toLocaleDateString('en-IN',{day:'numeric',month:'short'})}</span><span>${x.activity||'—'} · ${x.cigs??'—'} cig.</span></div>`).join(''):'<div class="empty">Your story will appear here after your first check-in.</div>';
+}
+function bindChips(id,callback){$(id).querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>callback(b.dataset.value,b)));}
+bindChips('activityChoices',(v,b)=>{current.activity=v;$('activityChoices').querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b));});
+bindChips('triggerChoices',(v,b)=>{current.triggers=current.triggers||[];current.triggers.includes(v)?current.triggers=current.triggers.filter(x=>x!==v):current.triggers.push(v);b.classList.toggle('selected',current.triggers.includes(v));});
+bindChips('sleepChoices',(v,b)=>{current.sleepQuality=v;$('sleepChoices').querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b));});
+bindChips('moodChoices',(v,b)=>{current.mood=Number(v);$('moodChoices').querySelectorAll('button').forEach(x=>x.classList.toggle('selected',x===b));});
+$('cigMinus').onclick=()=>{$('cigValue').textContent=Math.max(0,Number($('cigValue').textContent)-1)};
+$('cigPlus').onclick=()=>{$('cigValue').textContent=Number($('cigValue').textContent)+1};
+$('waterMinus').onclick=()=>{$('waterValue').textContent=Math.max(0,Number($('waterValue').textContent)-1)};
+$('waterPlus').onclick=()=>{$('waterValue').textContent=Number($('waterValue').textContent)+1};
+$('saveBtn').onclick=()=>{current.cigs=Number($('cigValue').textContent);collect();db[todayKey()]=structuredClone(current);saveDB();updateSummary();$('savedMsg').textContent='Saved on this device ✓';};
+$('prevDay').onclick=()=>{selected.setDate(selected.getDate()-1);loadForm()};
+$('nextDay').onclick=()=>{selected.setDate(selected.getDate()+1);loadForm()};
+function switchTab(tab){document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id===tab));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));}
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+$('exportBtn').onclick=()=>{let cols=['date','activity','minutes','steps','cigs','triggers','craving','water','breakfast','lunch','dinner','snack','sleep','sleepQuality','mood','proud','notes'];let rows=[cols.join(',')];Object.entries(db).sort().forEach(([d,x])=>{let vals=[d,x.activity,x.minutes,x.steps,x.cigs,(x.triggers||[]).join('|'),x.craving,x.water,...['breakfast','lunch','dinner','snack'].map(k=>x.meals?.[k]?'yes':'no'),x.sleep,x.sleepQuality,x.mood,x.proud,x.foodNotes];rows.push(vals.map(v=>'"'+String(v??'').replaceAll('"','""')+'"').join(','));});let blob=new Blob([rows.join('\n')],{type:'text/csv'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='back-to-me-progress.csv';a.click();URL.revokeObjectURL(a.href);};
+$('resetBtn').onclick=()=>{if(confirm('Delete every saved check-in on this device? Export a backup first if you want to keep it.')){db={};saveDB();loadForm();}};
+if('serviceWorker' in navigator && location.protocol.startsWith('http')){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+loadForm();updateSummary();
+</script>
+</body>
+</html>
